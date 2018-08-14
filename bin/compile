@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir> <env-dir>
+
+set -e
+unset GIT_DIR     # Avoid GIT_DIR leak from previous build steps
+set -o errexit    # always exit on error
+set -o nounset    # fail on unset variables
+
+BUILD_DIR=${1:-}
+CACHE_DIR=${2:-}
+ENV_DIR=${3:-}
+BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
+LOG_FILE='/tmp/node-build-log.txt'
+
+
+indent() {
+  sed -u 's/^/       /'
+}
+
+echo "-----> Found add-on vco-backup"
+
+#compress actual code
+tar -cvzPf /tmp/backup.tgz $1 > /dev/null
+mkdir ${BUILD_DIR}/backup
+mv /tmp/backup.tgz ${BUILD_DIR}/backup/
+
+### Load dependencies
+source ${BP_DIR}/lib/output.sh
+
+### Install node dependencies
+npm install | output "$LOG_FILE"
+
+BUILD_DIR=${BUILD_DIR} \
+CACHE_DIR=${CACHE_DIR} \
+ENV_DIR=${ENV_DIR} \
+SOURCE_VERSION=${SOURCE_VERSION} \
+node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
+
+
+
+
+
+
+
+
