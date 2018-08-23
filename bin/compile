@@ -36,7 +36,7 @@ ENV_DIR=${ENV_DIR} \
 SOURCE_VERSION=${SOURCE_VERSION} \
 node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
 
-return 1
+exit 1
 
 
 
