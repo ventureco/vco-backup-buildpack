@@ -21,7 +21,7 @@ Usage
 Example usage:
 
     $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs 
-    $ heroku buildpacks:add https://github.com/afquinterog/vco-backup-buildpack.git
+    $ heroku buildpacks:add https://github.com/ventureco/vco-backup-buildpack
 
     $ git push heroku master
 
