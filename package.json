@@ -1,0 +1,27 @@
+{
+  "name": "vco-venture-backups",
+  "version": "1.0.0",
+  "description": "This plugin creates a backup in a S3 bucket of code and dependencies every time there is a deployment to the heroku application.",
+  "main": "lib/upload.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afquinterog/vco-backup-buildpack.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afquinterog/vco-backup-buildpack/issues"
+  },
+  "homepage": "https://github.com/afquinterog/vco-backup-buildpack#readme",
+  "dependencies": {
+    "async": "^2.0.1",
+    "aws-sdk": "^2.5.0",
+    "glob": "^7.0.5",
+    "lodash": "^4.15.0",
+    "mime-types": "^2.1.11",
+    "shelljs": "^0.7.3"
+  }
+}

@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Don't need to detect will apply to any application that add the buildpack
+exit 0
