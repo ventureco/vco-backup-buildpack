@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-# info() {
-#   echo "       $*" || true
-# }
 
-# # format output and send a copy to the log
+#format data 
+indent() {
+  sed -u 's/^/       /'
+}
+
+#format output and send a copy to the log
 output() {
   local logfile="$1"
 
@@ -14,13 +16,3 @@ output() {
     echo "$LINE" >> "$logfile" || true
   done
 }
-
-# header() {
-#   echo "" || true
-#   echo "-----> $*" || true
-# }
-
-# error() {
-#   echo " !     $*" >&2 || true
-#   echo "" || true
-# }

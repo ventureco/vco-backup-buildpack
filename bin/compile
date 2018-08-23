@@ -13,10 +13,6 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
-indent() {
-  sed -u 's/^/       /'
-}
-
 echo "-----> backing up to s3 ... "
 
 #compress actual code
