@@ -1,7 +1,7 @@
 {
   "name": "vco-venture-backups",
   "version": "1.0.0",
-  "description": "Upload deployed code to s3 bucket",
+  "description": "This plugin creates a backup in a S3 bucket of code and dependencies every time there is a deployment to the heroku application.",
   "main": "lib/upload.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

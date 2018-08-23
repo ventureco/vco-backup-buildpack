@@ -1,7 +1,7 @@
 VCO Venture Backup buildpack
 ========================
 
-This plugin allows to generate backups on S3 of applications being deployed to heroku.
+This plugin creates a backup in a S3 bucket of code and dependencies every time there is a deployment to the heroku application.
 
 Requires the NodeJS buildpack to be installed. `https://github.com/heroku/heroku-buildpack-nodejs`
 
@@ -25,5 +25,5 @@ Example usage:
 
     $ git push heroku master
 
-The buildpack will compress the application code and stored it versioned on S3.
+The buildpack will compress the application code and dependencies and store them in a S3 bucket.
 
