@@ -13,6 +13,7 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
+apt-get update && apt-get upgrade
 apt-get install nodejs
 
 echo "-----> backing up to s3 ... "
