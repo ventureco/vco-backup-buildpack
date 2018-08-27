@@ -13,11 +13,11 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
-curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh -o install.sh
-bash install.sh
-export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#source ~/.profile
-nvm install v9.5.0
+# curl -sL https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh -o install.sh
+# bash install.sh
+# export NVM_DIR="$HOME/.nvm" [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# #source ~/.profile
+# nvm install v9.5.0
 
 
 #apt-get install curl
