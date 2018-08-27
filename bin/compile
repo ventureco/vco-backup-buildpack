@@ -13,6 +13,8 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
+apt-get install nodejs
+
 echo "-----> backing up to s3 ... "
 
 #compress actual code
@@ -31,6 +33,8 @@ CACHE_DIR=${CACHE_DIR} \
 ENV_DIR=${ENV_DIR} \
 SOURCE_VERSION=${SOURCE_VERSION} \
 node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
+
+exit 1
 
 
 
