@@ -13,24 +13,48 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
-echo "-----> backing up to s3 ... "
+# config
+AWS_CLI_URL="https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
 
-#compress actual code
-tar -cvzPf /tmp/backup.tgz $1 > /dev/null
-mkdir ${BUILD_DIR}/backup
-mv /tmp/backup.tgz ${BUILD_DIR}/backup/
+# parse and derive params
+BUILD_DIR=$1
+CACHE_DIR=$2
 
-### Load dependencies
-source ${BP_DIR}/lib/output.sh
+LP_DIR=`cd $(dirname $0); cd ..; pwd`
+BUILDPACK_DIR="$(dirname $(dirname $0))"
 
-### Install node dependencies
-npm install | output "$LOG_FILE"
+echo "-----> Fetching AWS CLI into slug"
+curl --progress-bar -o /tmp/awscli-bundle.zip $AWS_CLI_URL
+unzip -qq -d "$BUILD_DIR/vendor" /tmp/awscli-bundle.zip
 
-BUILD_DIR=${BUILD_DIR} \
-CACHE_DIR=${CACHE_DIR} \
-ENV_DIR=${ENV_DIR} \
-SOURCE_VERSION=${SOURCE_VERSION} \
-node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
+echo "-----> adding installer script into app/.profile.d"
+mkdir -p $BUILD_DIR/.profile.d
+cp "$BUILDPACK_DIR/bin/install_awscli.sh" $BUILD_DIR/.profile.d/
+chmod +x $BUILD_DIR/.profile.d/install_awscli.sh
+
+#cleaning up...
+
+
+
+
+# echo "-----> backing up to s3 ... "
+
+# #compress actual code
+# tar -cvzPf /tmp/backup.tgz $1 > /dev/null
+# mkdir ${BUILD_DIR}/backup
+# mv /tmp/backup.tgz ${BUILD_DIR}/backup/
+
+# ### Load dependencies
+# source ${BP_DIR}/lib/output.sh
+
+# ### Install node dependencies
+# npm install | output "$LOG_FILE"
+
+# BUILD_DIR=${BUILD_DIR} \
+# CACHE_DIR=${CACHE_DIR} \
+# ENV_DIR=${ENV_DIR} \
+# SOURCE_VERSION=${SOURCE_VERSION} \
+# node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
 
 exit 1
 
