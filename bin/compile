@@ -16,10 +16,6 @@ LOG_FILE='/tmp/node-build-log.txt'
 # config
 AWS_CLI_URL="https://s3.amazonaws.com/aws-cli/awscli-bundle.zip"
 
-# parse and derive params
-BUILD_DIR=$1
-CACHE_DIR=$2
-
 LP_DIR=`cd $(dirname $0); cd ..; pwd`
 BUILDPACK_DIR="$(dirname $(dirname $0))"
 
