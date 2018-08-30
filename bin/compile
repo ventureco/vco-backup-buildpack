@@ -23,6 +23,8 @@ chmod +x ./awscli-bundle/install
 
 /tmp/aws/bin/aws --version
 
+/tmp/aws/bin/aws s3 help
+
 
 
 
