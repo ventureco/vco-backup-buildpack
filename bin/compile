@@ -13,7 +13,15 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
 
-pip install awscli --upgrade --user
+
+#install aws-cli
+curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
+unzip awscli-bundle.zip
+chmod +x ./awscli-bundle/install
+./awscli-bundle/install -i /tmp/aws
+
+
+/tmp/aws/bin/aws s3 help
 
 
 
