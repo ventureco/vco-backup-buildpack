@@ -43,7 +43,7 @@ VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
 
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
 /tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_SECRET_ACCESS_KEY
-/tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_REGION
+/tmp/aws/bin/aws configure set region $VCO_BACKUPS_REGION
 
 #mkdir ~/.aws
 
