@@ -23,7 +23,11 @@ chmod +x ./awscli-bundle/install
 
 /tmp/aws/bin/aws --version
 
-mkdir ~/.aws
+aws configure set aws_access_key_id ${VCO_BACKUPS_ACCESS_KEY_ID}
+aws configure set aws_secret_access_key ${VCO_BACKUPS_SECRET_ACCESS_KEY}
+aws configure set aws_secret_access_key ${VCO_BACKUPS_REGION}
+
+#mkdir ~/.aws
 
 #cat >> ~/.aws/credentials << EOF
 #[default]
@@ -31,21 +35,21 @@ mkdir ~/.aws
 #aws_secret_access_key = $VCO_BACKUPS_SECRET_ACCESS_KEY
 #EOF
 
-cat >> ~/.aws/credentials << EOF
-[default]
-aws_access_key_id = "\$VCO_BACKUPS_ACCESS_KEY_ID"
-aws_secret_access_key = "\$VCO_BACKUPS_SECRET_ACCESS_KEY"
-EOF
+# cat >> ~/.aws/credentials << EOF
+# [default]
+# aws_access_key_id = "\$VCO_BACKUPS_ACCESS_KEY_ID"
+# aws_secret_access_key = "\$VCO_BACKUPS_SECRET_ACCESS_KEY"
+# EOF
 
-cat >> ~/.aws/config << EOF 
-[default]
-region = \$VCO_BACKUPS_REGION
-EOF
+# cat >> ~/.aws/config << EOF 
+# [default]
+# region = \$VCO_BACKUPS_REGION
+# EOF
 
 
 cat ~/.aws/credentials
 
-#/tmp/aws/bin/aws s3 ls
+/tmp/aws/bin/aws s3 ls
 
 
 
