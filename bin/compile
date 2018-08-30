@@ -23,6 +23,8 @@ chmod +x ./awscli-bundle/install
 
 /tmp/aws/bin/aws --version
 
+mkdir ~/.aws
+
 cat >> ~/.aws/credentials << EOF
 [default]
 aws_access_key_id = $VCO_BACKUPS_ACCESS_KEY_ID
