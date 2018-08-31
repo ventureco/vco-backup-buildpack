@@ -3,8 +3,6 @@ VCO Venture Backup buildpack
 
 This plugin creates a backup in a S3 bucket of code and dependencies every time there is a deployment to the heroku application.
 
-Requires the NodeJS buildpack to be installed. `https://github.com/heroku/heroku-buildpack-nodejs`
-
 Setting environment variables for build
 -----
 
@@ -20,7 +18,6 @@ Usage
 
 Example usage:
 
-    $ heroku buildpacks:add https://github.com/heroku/heroku-buildpack-nodejs 
     $ heroku buildpacks:add https://github.com/ventureco/vco-backup-buildpack
 
     $ git push heroku master
