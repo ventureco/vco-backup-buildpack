@@ -10,7 +10,6 @@ BUILD_DIR=${1:-}
 CACHE_DIR=${2:-}
 ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
-LOG_FILE='/tmp/node-build-log.txt'
 
 #Get environment variables
 VCO_BACKUPS_ACCESS_KEY_ID=$(cat $ENV_DIR/VCO_BACKUPS_ACCESS_KEY_ID)
@@ -25,9 +24,8 @@ unzip awscli-bundle.zip
 chmod +x ./awscli-bundle/install
 ./awscli-bundle/install -i /tmp/aws
 
-
 #set backup date 
-dt=$(date '+%Y-%m-%dB%H:%M:%S');
+dt=$(date '+%Y-%m-%dT%H:%M:%S');
 
 #configure aws cli
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
@@ -38,7 +36,7 @@ dt=$(date '+%Y-%m-%dB%H:%M:%S');
 echo "-----> backing up to s3 ... "
 
 #compress actual code
-tar -cvzPf /tmp/backup.tgz $1 > /dev/null
+tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 
 #send code to s3
 /tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz
