@@ -12,21 +12,12 @@ ENV_DIR=${3:-}
 BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 LOG_FILE='/tmp/node-build-log.txt'
 
-
-# export_env_dir() {
-#   env_dir=$1
-#   whitelist_regex=${2:-''}
-#   blacklist_regex=${3:-'^(PATH|GIT_DIR|CPATH|CPPATH|LD_PRELOAD|LIBRARY_PATH)$'}
-#   if [ -d "$env_dir" ]; then
-#     for e in $(ls $env_dir); do
-#       echo "$e" | grep -E "$whitelist_regex" | grep -qvE "$blacklist_regex" &&
-#       export "$e=$(cat $env_dir/$e)"
-#       :
-#     done
-#   fi
-# }
-
-# export_env_dir ENV_DIR
+#Get environment variables
+VCO_BACKUPS_ACCESS_KEY_ID=$(cat $ENV_DIR/VCO_BACKUPS_ACCESS_KEY_ID)
+VCO_BACKUPS_SECRET_ACCESS_KEY=$(cat $ENV_DIR/VCO_BACKUPS_SECRET_ACCESS_KEY)
+VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
+VCO_BACKUPS_BUCKET_NAME=$(cat $ENV_DIR/VCO_BACKUPS_BUCKET_NAME)
+VCO_BACKUPS_APP_NAME=$(cat $ENV_DIR/VCO_BACKUPS_APP_NAME)
 
 #install aws-cli
 curl https://s3.amazonaws.com/aws-cli/awscli-bundle.zip -o awscli-bundle.zip
@@ -34,39 +25,24 @@ unzip awscli-bundle.zip
 chmod +x ./awscli-bundle/install
 ./awscli-bundle/install -i /tmp/aws
 
-VCO_BACKUPS_ACCESS_KEY_ID=$(cat $ENV_DIR/VCO_BACKUPS_ACCESS_KEY_ID)
-VCO_BACKUPS_SECRET_ACCESS_KEY=$(cat $ENV_DIR/VCO_BACKUPS_SECRET_ACCESS_KEY)
-VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
-VCO_BACKUPS_BUCKET_NAME=$(cat $ENV_DIR/VCO_BACKUPS_BUCKET_NAME)
-VCO_BACKUPS_APP_NAME=$(cat $ENV_DIR/VCO_BACKUPS_APP_NAME)
 
-dt=$(date '+%Y-%m-%dZ%H:%M:%S');
+#set backup date 
+dt=$(date '+%Y-%m-%dB%H:%M:%S');
 
+#configure aws cli
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
 /tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_SECRET_ACCESS_KEY
 /tmp/aws/bin/aws configure set region $VCO_BACKUPS_REGION
 
+
 echo "-----> backing up to s3 ... "
 
-# #compress actual code
+#compress actual code
 tar -cvzPf /tmp/backup.tgz $1 > /dev/null
 
+#send code to s3
 /tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz
 
-
-#mv /tmp/backup.tgz ${BUILD_DIR}/backup/
-
-# ### Load dependencies
-# source ${BP_DIR}/lib/output.sh
-
-# ### Install node dependencies
-# npm install | output "$LOG_FILE"
-
-# BUILD_DIR=${BUILD_DIR} \
-# CACHE_DIR=${CACHE_DIR} \
-# ENV_DIR=${ENV_DIR} \
-# SOURCE_VERSION=${SOURCE_VERSION} \
-# node ${BP_DIR}/lib/upload.js | output "$LOG_FILE" 
 
 exit 1
 
