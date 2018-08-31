@@ -30,7 +30,7 @@ dt=$(date '+%Y-%m-%dT%H:%M:%S');
 #configure aws cli
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
 /tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_SECRET_ACCESS_KEY
-/tmp/aws/bin/aws configure set region $VCO_BACKUPS_REGION
+/tmp/aws/bin/aws configure set re gion $VCO_BACKUPS_REGION
 
 
 echo "-----> backing up to s3 ... "
@@ -40,9 +40,6 @@ tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 
 #send code to s3
 /tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz
-
-
-exit 1
 
 
 
