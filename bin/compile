@@ -40,7 +40,7 @@ VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
 VCO_BACKUPS_BUCKET_NAME=$(cat $ENV_DIR/VCO_BACKUPS_BUCKET_NAME)
 VCO_BACKUPS_APP_NAME=$(cat $ENV_DIR/VCO_BACKUPS_APP_NAME)
 
-dt=$(date '+%d/%m/%Y_%H:%M:%S');
+dt=$(date '+%Y-%m-%d_%H:%M:%S');
 
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
 /tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_SECRET_ACCESS_KEY
