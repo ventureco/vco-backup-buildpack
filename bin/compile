@@ -39,7 +39,7 @@ echo "-----> backing up to s3 ... "
 tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 
 #send code to s3
-/tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz
+/tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz --sse
 
 
 
