@@ -34,51 +34,24 @@ unzip awscli-bundle.zip
 chmod +x ./awscli-bundle/install
 ./awscli-bundle/install -i /tmp/aws
 
-
-/tmp/aws/bin/aws --version
-
 VCO_BACKUPS_ACCESS_KEY_ID=$(cat $ENV_DIR/VCO_BACKUPS_ACCESS_KEY_ID)
 VCO_BACKUPS_SECRET_ACCESS_KEY=$(cat $ENV_DIR/VCO_BACKUPS_SECRET_ACCESS_KEY)
 VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
 VCO_BACKUPS_BUCKET_NAME=$(cat $ENV_DIR/VCO_BACKUPS_BUCKET_NAME)
 VCO_BACKUPS_APP_NAME=$(cat $ENV_DIR/VCO_BACKUPS_APP_NAME)
 
+dt=$(date '+%d/%m/%Y_%H:%M:%S');
+
 /tmp/aws/bin/aws configure set aws_access_key_id $VCO_BACKUPS_ACCESS_KEY_ID
 /tmp/aws/bin/aws configure set aws_secret_access_key $VCO_BACKUPS_SECRET_ACCESS_KEY
 /tmp/aws/bin/aws configure set region $VCO_BACKUPS_REGION
 
-#mkdir ~/.aws
-
-#cat >> ~/.aws/credentials << EOF
-#[default]
-#aws_access_key_id = $VCO_BACKUPS_ACCESS_KEY_ID
-#aws_secret_access_key = $VCO_BACKUPS_SECRET_ACCESS_KEY
-#EOF
-
-# cat >> ~/.aws/credentials << EOF
-# [default]
-# aws_access_key_id = "\$VCO_BACKUPS_ACCESS_KEY_ID"
-# aws_secret_access_key = "\$VCO_BACKUPS_SECRET_ACCESS_KEY"
-# EOF
-
-# cat >> ~/.aws/config << EOF 
-# [default]
-# region = \$VCO_BACKUPS_REGION
-# EOF
-
-
-#cat ~/.aws/credentials
-
-/tmp/aws/bin/aws s3 ls
-
-
-# echo "-----> backing up to s3 ... "
+echo "-----> backing up to s3 ... "
 
 # #compress actual code
 tar -cvzPf /tmp/backup.tgz $1 > /dev/null
-#mkdir ${BUILD_DIR}/backup
 
-/tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/backup.tgz
+/tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz
 
 
 #mv /tmp/backup.tgz ${BUILD_DIR}/backup/
