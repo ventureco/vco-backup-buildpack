@@ -43,6 +43,8 @@ tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 
 /tmp/aws/bin/aws glacier upload-archive --account-id - --vault-name backup-vault --body /tmp/backup.tgz
 
+exit 1
+
 
 
 
