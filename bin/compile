@@ -38,16 +38,12 @@ echo "-----> backing up to s3 ... "
 #compress actual code
 tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 
-#send code to s3
-#/tmp/aws/bin/aws s3 cp /tmp/backup.tgz s3://$VCO_BACKUPS_BUCKET_NAME/$VCO_BACKUPS_APP_NAME/$dt.tgz --sse
-
+#Save data on Glacier vault
 echo "-----> Archive description: $VCO_BACKUPS_APP_NAME-$dt " 
 /tmp/aws/bin/aws glacier upload-archive --archive-description $VCO_BACKUPS_APP_NAME-$dt \
 																			  --account-id -  \
 																			  --vault-name $VCO_BACKUPS_VAULT_NAME \
 																			  --body /tmp/backup.tgz 
-
-exit 1
 
 
 
