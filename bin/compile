@@ -15,7 +15,7 @@ BP_DIR=$(cd $(dirname ${0:-}); cd ..; pwd)
 VCO_BACKUPS_ACCESS_KEY_ID=$(cat $ENV_DIR/VCO_BACKUPS_ACCESS_KEY_ID)
 VCO_BACKUPS_SECRET_ACCESS_KEY=$(cat $ENV_DIR/VCO_BACKUPS_SECRET_ACCESS_KEY)
 VCO_BACKUPS_REGION=$(cat $ENV_DIR/VCO_BACKUPS_REGION)
-VCO_BACKUPS_BUCKET_NAME=$(cat $ENV_DIR/VCO_BACKUPS_BUCKET_NAME)
+VCO_BACKUPS_VAULT_NAME=$(cat $ENV_DIR/VCO_BACKUPS_VAULT_NAME)
 VCO_BACKUPS_APP_NAME=$(cat $ENV_DIR/VCO_BACKUPS_APP_NAME)
 
 #install aws-cli
@@ -44,7 +44,7 @@ tar -cvzPf /tmp/backup.tgz $BUILD_DIR > /dev/null
 echo "-----> Archive description: $VCO_BACKUPS_APP_NAME-$dt " 
 /tmp/aws/bin/aws glacier upload-archive --archive-description $VCO_BACKUPS_APP_NAME-$dt \
 																			  --account-id -  \
-																			  --vault-name backup-vault \
+																			  --vault-name $VCO_BACKUPS_VAULT_NAME \
 																			  --body /tmp/backup.tgz 
 
 exit 1
