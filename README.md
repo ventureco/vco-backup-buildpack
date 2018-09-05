@@ -1,7 +1,7 @@
 VCO Venture Backup buildpack
 ========================
 
-This plugin creates a backup in a S3 bucket of code and dependencies every time there is a deployment to the heroku application.
+This plugin creates a backup in Glacier of code and dependencies every time there is a deployment to the heroku application.
 
 Setting environment variables for build
 -----
@@ -10,7 +10,7 @@ Setting environment variables for build
 VCO_BACKUPS_ACCESS_KEY_ID=<aws access key id>
 VCO_BACKUPS_SECRET_ACCESS_KEY=<aws secret access key>
 VCO_BACKUPS_REGION=<aws-region>
-VCO_BACKUPS_BUCKET_NAME=<s3-bucket-name>
+VCO_BACKUPS_VAULT_NAME=<glacier-vault-name>
 VCO_BACKUPS_APP_NAME=<app-name>
 
 Usage
@@ -22,5 +22,5 @@ Example usage:
 
     $ git push heroku master
 
-The buildpack will compress the application code and dependencies and store them in a S3 bucket.
+The buildpack will compress the application code and dependencies and store them in Glacier.
 
